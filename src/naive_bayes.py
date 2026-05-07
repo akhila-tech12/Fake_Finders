@@ -6,6 +6,7 @@ Uses evaluation code from classification_evaluator.py
 """
 
 import csv
+import re
 import random
 from classification_evaluator import ClassificationEvaluator
 
@@ -32,8 +33,13 @@ def load_dataset(fake_path, true_path, sample_size=1000, seed=42):
     return dataset
 
 
+
+
 def tokenize(text):
-    return text.lower().split()
+    # Better tokenizer - removes punctuation properly
+    text = text.lower()
+    text = re.sub(r"[^a-z\s]", " ", text)  # remove punctuation
+    return text.split()
 
 
 def build_vocab(dataset):
